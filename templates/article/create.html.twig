@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+<div>
+    <h1>Ajouter un article</h1>
+
+    <form name="createArticle" action="create" method="POST">
+        <table>
+            <tbody>
+                <tr>
+                    Titre
+                </tr>
+                <tr>
+                    <input type="text" name="title">
+                </tr>
+            </tbody>
+
+        </table>
+        <input type="submit" value="Envoyer">
+    </form>
+
+    <hr>
+    <a href="../">Retour à la liste</a>
+</div>
+{% endblock %}

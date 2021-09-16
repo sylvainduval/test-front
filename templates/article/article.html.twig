@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+<div>
+    <h1>{{ article.getTitle() }}</h1>
+
+    <table>
+        <tbody>
+                <tr>
+                    <td>Accroche</td>
+                    <td>{{ article.getLeading() }}</td>
+                </tr>
+                <tr>
+                    <td>Descriptif</td>
+                    <td>{{ article.getBody() }}</td>
+                </tr>
+                <tr>
+                    <td>Date de création</td>
+                    <td>{{ article.getCreatedAt() }}</td>
+                </tr>
+                <tr>
+                    <td>Auteur</td>
+                    <td>{{ article.getCreatedBy() }}</td>
+                </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <a href="../">Retour à la liste</a>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+<div>
+    <h1>Liste des articles</h1>
+
+    <table>
+        <head>
+            <th>Titre</th>
+            <th>Accroche</th>
+            <th>Date de création</th>
+            <th>Auteur</th>
+            <th></th>
+        </head>
+        <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.getTitle() }}</td>
+                    <td>{{ article.getLeading() }}</td>
+                    <td>{{ article.getCreatedAt() }}</td>
+                    <td>{{ article.getCreatedBy() }}</td>
+                    <td><a href="article/{{ article.getSlug() }}">Atteindre</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a href="create">Créer un article</a>
+
+   <!-- This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ '/home/develop/Volumes/App/test-front/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/home/develop/Volumes/App/test-front/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
+    </ul>
+    -->
+</div>
+{% endblock %}

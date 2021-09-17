@@ -4,39 +4,46 @@
 
 {% block body %}
 
-<div>
+<div class="container">
     <h1>Ajouter un article</h1>
 
     {% if error is not empty %}
-    <p>{{ error }}</p>
+    <div class="alert alert-danger" role="error">
+      {{ error }}
+    </div>
     {% endif %}
 
-    <form name="createArticle" action="creer" method="POST">
-        <table>
-            <tbody>
-                <tr>
-                    <td>Titre</td>
-                    <td><input type="text" name="title" value="{{ title }}"></td>
-                </tr>
-                <tr>
-                    <td>Accroche</td>
-                    <td><textarea name="leading" value="{{ leading }}"></textarea></td>
-                </tr>
-                <tr>
-                    <td>Corps</td>
-                    <td><textarea name="body">{{ body }}</textarea></td>
-                </tr>
-                <tr>
-                    <td>Votre nom</td>
-                    <td><input type="text" name="createdBy">{{ createdBy }}</td>
-                </tr>
-            </tbody>
-
-        </table>
-        <input type="submit" value="Soumettre">
-    </form>
-
-    <hr>
-    <a href=".">Retour à la liste</a>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form name="createArticle" action="creer" method="POST">
+                <div class="mb-3">
+                    <label for="formControlTitle" class="form-label">Titre</label>
+                    <input type="text" name="title" class="form-control" id="formControlTitle" value="{{ title }}">
+                </div>
+                <div class="mb-3">
+                    <label for="formControlLeading" class="form-label">Accroche</label>
+                    <textarea name="leading" class="form-control" id="formControlLeading" rows="2">{{ leading }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="formControlBody" class="form-label">Corps</label>
+                    <textarea name="body" class="form-control" id="formControlBody" rows="2">{{ body }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="formControlCreatedBy" class="form-label">Votre nom</label>
+                    <input type="text" name="createdBy" class="form-control" id="formControlCreatedBy" value="{{ createdBy }}">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Soumettre</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        <hr>
+        <p>
+            <a href=".">Retour à la liste</a>
+        </p>
+    </div>
 </div>
+
 {% endblock %}

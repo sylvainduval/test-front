@@ -4,32 +4,24 @@
 
 {% block body %}
 
-<div>
+<div class="container">
     <h1>{{ article.getTitle() }}</h1>
+    <p class="text-secondary">Par <strong>{{ article.getCreatedBy() }}</strong> le {{ article.getCreatedAt()|date("d-m-Y à H:i") }}</p>
 
-    <table>
-        <tbody>
-                <tr>
-                    <td>Accroche</td>
-                    <td>{{ article.getLeading() }}</td>
-                </tr>
-                <tr>
-                    <td>Descriptif</td>
-                    <td>{{ article.getBody() }}</td>
-                </tr>
-                <tr>
-                    <td>Date de création</td>
-                    <td>{{ article.getCreatedAt()|date("d-m-Y H:i") }}</td>
-                </tr>
-                <tr>
-                    <td>Auteur</td>
-                    <td>{{ article.getCreatedBy() }}</td>
-                </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4>Accroche</h4>
+            <p>{{ article.getLeading()|nl2br }}</p>
 
-    <hr>
-    <a href="../">Retour à la liste</a>
-    | <a href="../delete/{{ article.getSlug() }}">Supprimer</a>
+            <h4>Descriptif</h4>
+            <p>{{ article.getBody()|nl2br }}</p>
+        </div>
+        <div class="col-md-2"></div>
+        <hr>
+        <p>
+            <a href="../">Retour à la liste</a> | <a class="text-danger" href="../delete/{{ article.getSlug() }}">Supprimer</a>
+        </p>
+    </div>
 </div>
 {% endblock %}

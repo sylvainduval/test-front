@@ -1,20 +1,13 @@
 <?php
 namespace App\Domain;
 
+use Carbon\Carbon;
 use GuzzleHttp\RequestOptions;
 use Exception;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class ArticleDAO extends AbstractDAO
 {
-	private $articleDO;
-
-	public function __construct(ArticleDO $articleDO, $apiEndpoint)
-	{
-		$this->articleDO = $articleDO;
-
-		parent::__construct($apiEndpoint);
-	}
-
 	public function findAll(int $page): array
 	{
 		$data = $this->request(
@@ -48,10 +41,45 @@ class ArticleDAO extends AbstractDAO
 		return $this->buildDomainObjectFromQueryResult($record);
 	}
 
+	public function insert(ArticleDO $articleDO): ArticleDO
+	{
+		try {
+			$record = $this->request(
+				$this->apiEndpoint . '/articles',
+				[RequestOptions::JSON => [
+					'title' => $articleDO->getTitle(),
+					'body' => $articleDO->getBody(),
+					'createdAt' => Carbon::now()->toISOString(false),
+					'createdBy' => $articleDO->getCreatedBy(),
+					'leadingTitle' => $articleDO->getLeading(),
+				]],
+				'post'
+			);
+
+			return $this->buildDomainObjectFromQueryResult($record);
+		} catch (Exception $exception) {
+			throw new BadRequestException($exception->getMessage());
+		}
+	}
+
+	public function delete(ArticleDO $articleDO): void
+	{
+		try {
+			$this->request(
+				$this->apiEndpoint . '/articles/' . $articleDO->getSlug(),
+				[],
+				'delete'
+			);
+
+			return;
+		} catch (Exception $exception) {
+			throw new BadRequestException($exception->getMessage());
+		}
+	}
+
 	private function buildDomainObjectFromQueryResult(array $data): ArticleDO
 	{
-		/** @var ArticleDO $queryDomainObject */
-		$queryDomainObject = new $this->articleDO();
+		$queryDomainObject = new ArticleDO();
 		$queryDomainObject->setHydraId($data['@id']);
 		$queryDomainObject->setId($data['id']);
 		$queryDomainObject->setTitle($data['title']);

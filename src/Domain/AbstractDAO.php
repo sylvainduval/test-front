@@ -15,7 +15,7 @@ abstract class AbstractDAO
 		$this->apiEndpoint = $apiEndpoint;
 	}
 
-	protected function request($url, $body, $method): array
+	protected function request($url, $body, $method): ?array
 	{
 		try {
 			return json_decode($this->client->{$method}($url, $body)->getBody()->getContents(), true);

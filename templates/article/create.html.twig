@@ -7,22 +7,36 @@
 <div>
     <h1>Ajouter un article</h1>
 
-    <form name="createArticle" action="create" method="POST">
+    {% if error is not empty %}
+    <p>{{ error }}</p>
+    {% endif %}
+
+    <form name="createArticle" action="creer" method="POST">
         <table>
             <tbody>
                 <tr>
-                    Titre
+                    <td>Titre</td>
+                    <td><input type="text" name="title" value="{{ title }}"></td>
                 </tr>
                 <tr>
-                    <input type="text" name="title">
+                    <td>Accroche</td>
+                    <td><textarea name="leading" value="{{ leading }}"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Corps</td>
+                    <td><textarea name="body">{{ body }}</textarea></td>
+                </tr>
+                <tr>
+                    <td>Votre nom</td>
+                    <td><input type="text" name="createdBy">{{ createdBy }}</td>
                 </tr>
             </tbody>
 
         </table>
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Soumettre">
     </form>
 
     <hr>
-    <a href="../">Retour à la liste</a>
+    <a href=".">Retour à la liste</a>
 </div>
 {% endblock %}

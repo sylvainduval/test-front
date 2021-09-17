@@ -1,7 +1,6 @@
 <?php
 namespace App\Domain;
 
-use Carbon\Carbon;
 use GuzzleHttp\RequestOptions;
 use Exception;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -49,7 +48,6 @@ class ArticleDAO extends AbstractDAO
 				[RequestOptions::JSON => [
 					'title' => $articleDO->getTitle(),
 					'body' => $articleDO->getBody(),
-					'createdAt' => Carbon::now()->toISOString(false),
 					'createdBy' => $articleDO->getCreatedBy(),
 					'leadingTitle' => $articleDO->getLeading(),
 				]],

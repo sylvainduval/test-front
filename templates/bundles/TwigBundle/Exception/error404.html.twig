@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Not found{% endblock %}
+{% block title %}Page introuvable{% endblock %}
 
 {% block body %}
-    <h1>Page not found</h1>
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('articles') }}">return to the homepage </a>.
-    </p>
+<div class="container">
+    <h1>Page introuvable</h1>
+
+    <p>La page demandée ne peut pas être trouvée. Vérifiez l'URL ou <a href="{{ path('articles') }}">retournez aux articles</a>.</p>
+</div>
 {% endblock %}

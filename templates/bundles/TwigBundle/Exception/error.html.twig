@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Error{% endblock %}
+{% block title %}Erreur{% endblock %}
 
 {% block body %}
-    <h1>An error occured</h1>
 
-    <p>
-        An error happened. Checkout for any URL
-        misspelling or <a href="{{ path('articles') }}">return to the homepage </a>.
-    </p>
+<div class="container">
+    <h1>Une erreur est survenue</h1>
+
+    <p>Si le problème persiste, contactez votre administrateur ou <a href="{{ path('articles') }}">retournez aux articles</a>.</p>
+</div>
 {% endblock %}

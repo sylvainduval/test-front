@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -40,7 +41,7 @@ class ArticleController extends AbstractController
 		$articleDO = $this->articleDAO->find($slug);
 
 		if (empty($articleDO)) {
-			return $this->render('404.html.twig', []);
+			throw new NotFoundHttpException('Article introuvable');
 		}
 
 		return $this->render('article/article.html.twig', [
@@ -58,14 +59,14 @@ class ArticleController extends AbstractController
 		$articleDO = $this->articleDAO->find($slug);
 
 		if (empty($articleDO)) {
-			return $this->render('404.html.twig', []);
+			throw new NotFoundHttpException('Article introuvable');
 		}
 
 		try {
 			$this->articleDAO->delete($articleDO);
 		} catch (BadRequestException $exception) {
 			if (empty($articleDO)) {
-				return $this->render('404.html.twig', []);
+				throw new NotFoundHttpException('Article introuvable');
 			}
 		}
 

@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ article.getTitle() }}</td>
                     <td>{{ article.getLeading() }}</td>
-                    <td>{{ article.getCreatedAt() }}</td>
+                    <td>{{ article.getCreatedAt()|date("d-m-Y H:i") }}</td>
                     <td>{{ article.getCreatedBy() }}</td>
                     <td><a href="article/{{ article.getSlug() }}">Atteindre</a></td>
                 </tr>

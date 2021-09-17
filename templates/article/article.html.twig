@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td>Date de création</td>
-                    <td>{{ article.getCreatedAt() }}</td>
+                    <td>{{ article.getCreatedAt()|date("d-m-Y H:i") }}</td>
                 </tr>
                 <tr>
                     <td>Auteur</td>

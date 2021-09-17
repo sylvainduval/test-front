@@ -9,6 +9,8 @@ abstract class AbstractDAO
 	protected $client;
 	protected $apiEndpoint;
 
+	abstract protected function buildDomainObjectFromQueryResult(array $data);
+
 	public function __construct($apiEndpoint)
 	{
 		$this->client = new Client();

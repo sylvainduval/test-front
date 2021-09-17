@@ -77,7 +77,7 @@ class ArticleDAO extends AbstractDAO
 		}
 	}
 
-	private function buildDomainObjectFromQueryResult(array $data): ArticleDO
+	protected function buildDomainObjectFromQueryResult(array $data): ArticleDO
 	{
 		$queryDomainObject = new ArticleDO();
 		$queryDomainObject->setHydraId($data['@id']);

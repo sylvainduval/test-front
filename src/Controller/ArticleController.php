@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Domain\ArticleDAO;
@@ -22,16 +21,16 @@ class ArticleController extends AbstractController
 	}
 
 	/**
-     * @Route("/", name="articles", methods={"GET"})
-     */
-    public function index(): Response
-    {
-    	$articleDOs = $this->articleDAO->findAll(1);
+	 * @Route("/{page}", requirements={"page"="\d+"}, defaults={"page"="1"}, name="articles", methods={"GET"})
+	 */
+	public function index(int $page): Response
+	{
+		$articleDOs = $this->articleDAO->findAll($page ?: 1);
 
-        return $this->render('article/index.html.twig', [
-            'articles' => $articleDOs,
-        ]);
-    }
+		return $this->render('article/index.html.twig', [
+			'articles' => $articleDOs,
+		]);
+	}
 
 	/**
 	 * @Route("/article/{slug}", name="get_article", methods={"GET"})

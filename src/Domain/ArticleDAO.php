@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Domain;
 
 use GuzzleHttp\RequestOptions;
 use Exception;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use App\Entity\Article;
 
 class ArticleDAO extends AbstractDAO
 {
@@ -25,7 +27,7 @@ class ArticleDAO extends AbstractDAO
 		return $collection;
 	}
 
-	public function find(string $slug): ?ArticleDO
+	public function find(string $slug): ?Article
 	{
 		try {
 			$record = $this->request(
@@ -40,16 +42,16 @@ class ArticleDAO extends AbstractDAO
 		return $this->buildDomainObjectFromQueryResult($record);
 	}
 
-	public function insert(ArticleDO $articleDO): ArticleDO
+	public function insert(Article $article): Article
 	{
 		try {
 			$record = $this->request(
 				$this->apiEndpoint . '/articles',
 				[RequestOptions::JSON => [
-					'title' => $articleDO->getTitle(),
-					'body' => $articleDO->getBody(),
-					'createdBy' => $articleDO->getCreatedBy(),
-					'leadingTitle' => $articleDO->getLeading(),
+					'title' => $article->getTitle(),
+					'body' => $article->getBody(),
+					'createdBy' => $article->getCreatedBy(),
+					'leadingTitle' => $article->getLeading(),
 				]],
 				'post'
 			);
@@ -60,11 +62,11 @@ class ArticleDAO extends AbstractDAO
 		}
 	}
 
-	public function delete(ArticleDO $articleDO): void
+	public function delete(Article $article): void
 	{
 		try {
 			$this->request(
-				$this->apiEndpoint . '/articles/' . $articleDO->getSlug(),
+				$this->apiEndpoint . '/articles/' . $article->getSlug(),
 				[],
 				'delete'
 			);
@@ -75,10 +77,9 @@ class ArticleDAO extends AbstractDAO
 		}
 	}
 
-	protected function buildDomainObjectFromQueryResult(array $data): ArticleDO
+	protected function buildDomainObjectFromQueryResult(array $data): Article
 	{
-		$queryDomainObject = new ArticleDO();
-		$queryDomainObject->setHydraId($data['@id']);
+		$queryDomainObject = new Article();
 		$queryDomainObject->setId($data['id']);
 		$queryDomainObject->setTitle($data['title']);
 		$queryDomainObject->setSlug($data['slug']);

@@ -1,9 +1,9 @@
 <?php
-namespace App\Domain;
 
-class ArticleDO
+namespace App\Entity;
+
+class Article
 {
-	private $hydraId;
 	private $id;
 	private $slug;
 	private $title;
@@ -11,16 +11,6 @@ class ArticleDO
 	private $leading;
 	private $createdAt;
 	private $createdBy;
-
-	public function getHydraId(): ?string
-	{
-		return $this->hydraId;
-	}
-
-	public function setHydraId(?string $hydraId): void
-	{
-		$this->hydraId = $hydraId;
-	}
 
 	public function getId(): ?int
 	{

@@ -4,39 +4,59 @@
 
 {% block body %}
 
+
 <div class="container">
     <h1>Ajouter un article</h1>
 
-    {% if error is not empty %}
+    {% if not form.vars.valid %}
     <div class="alert alert-danger" role="error">
-      {{ error }}
+        <ul class="mb-0">
+            {% for child in form.children %}
+                {# Display the errors of the form item #}
+                {%for error in child.vars.errors%}
+                    <li>{{error.message}}</li>
+                {%endfor%}
+            {%endfor%}
+        </ul>
     </div>
-    {% endif %}
+    {%endif%}
 
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <form name="createArticle" action="creer" method="POST">
+            {{ form_start(form) }}
+            <!--<form name="createArticle" action="creer" method="POST">-->
                 <div class="mb-3">
-                    <label for="formControlTitle" class="form-label">Titre</label>
-                    <input type="text" name="title" class="form-control" id="formControlTitle" value="{{ title }}">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+
+                    <!--<label for="formControlTitle" class="form-label">Titre</label>
+                    <input type="text" name="title" class="form-control" id="formControlTitle" value="title">-->
                 </div>
                 <div class="mb-3">
-                    <label for="formControlLeading" class="form-label">Accroche</label>
-                    <textarea name="leading" class="form-control" id="formControlLeading" rows="2">{{ leading }}</textarea>
+                    {{ form_label(form.leading) }}
+                    {{ form_widget(form.leading) }}
+
+                    <!--<label for="formControlLeading" class="form-label">Accroche</label>
+                    <textarea name="leading" class="form-control" id="formControlLeading" rows="2">leading</textarea>-->
                 </div>
                 <div class="mb-3">
-                    <label for="formControlBody" class="form-label">Corps</label>
-                    <textarea name="body" class="form-control" id="formControlBody" rows="2">{{ body }}</textarea>
+                    {{ form_label(form.body) }}
+                    {{ form_widget(form.body) }}
+
+                    <!--<label for="formControlBody" class="form-label">Corps</label>
+                    <textarea name="body" class="form-control" id="formControlBody" rows="2">body</textarea>-->
                 </div>
                 <div class="mb-3">
-                    <label for="formControlCreatedBy" class="form-label">Votre nom</label>
-                    <input type="text" name="createdBy" class="form-control" id="formControlCreatedBy" value="{{ createdBy }}">
+                    {{ form_label(form.createdBy) }}
+                    {{ form_widget(form.createdBy) }}
+                    <!--<label for="formControlCreatedBy" class="form-label">Votre nom</label>
+                    <input type="text" name="createdBy" class="form-control" id="formControlCreatedBy" value="createdBy">-->
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-primary" type="submit">Soumettre</button>
+                    <input class="btn btn-primary" type="submit" value="Soumettre">
                 </div>
-            </form>
+            {{ form_end(form) }}
         </div>
         <div class="col-md-2"></div>
         <hr>

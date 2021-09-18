@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Domain\ArticleDAO;
@@ -18,6 +19,11 @@ class ArticleController extends AbstractController
 {
 	private $articleDAO;
 
+	/**
+	 * @param ArticleDAO $articleDAO
+	 *
+	 * @return void
+	 */
 	public function __construct(ArticleDAO $articleDAO)
 	{
 		$this->articleDAO = $articleDAO;
@@ -25,6 +31,10 @@ class ArticleController extends AbstractController
 
 	/**
 	 * @Route("/{page}", requirements={"page"="\d+"}, defaults={"page"="1"}, name="articles", methods={"GET"})
+	 *
+	 * @param int $page
+	 *
+	 * @return Response
 	 */
 	public function index(int $page): Response
 	{
@@ -37,6 +47,10 @@ class ArticleController extends AbstractController
 
 	/**
 	 * @Route("/article/{slug}", name="get_article", methods={"GET"})
+	 *
+	 * @param string $slug
+	 *
+	 * @return Response
 	 */
 	public function getArticle(string $slug): Response
 	{
@@ -53,6 +67,8 @@ class ArticleController extends AbstractController
 
 	/**
 	 * @Route("/delete/{slug}", name="delete_article", methods={"GET"})
+	 *
+	 * @param string $slug
 	 *
 	 * @return Response|RedirectResponse
 	 */
@@ -77,8 +93,13 @@ class ArticleController extends AbstractController
 
 	/**
 	 * @Route("/creer", name="init_create_article", methods={"GET", "POST"})
+	 *
+	 * @param Request $request
+	 * @param SerializerInterface $serializer
+	 *
+	 * @return Response
 	 */
-	public function create(Request $request, SerializerInterface $serializer): Response
+	public function createArticle(Request $request, SerializerInterface $serializer): Response
 	{
 		$form = $this->createForm(ArticleType::class);
 

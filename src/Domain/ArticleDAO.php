@@ -9,6 +9,11 @@ use App\Entity\Article;
 
 class ArticleDAO extends AbstractDAO
 {
+	/**
+	 * @param int $page
+	 *
+	 * @return Article[]|array
+	 */
 	public function findAll(int $page): array
 	{
 		$data = $this->request(
@@ -27,6 +32,11 @@ class ArticleDAO extends AbstractDAO
 		return $collection;
 	}
 
+	/**
+	 * @param string $slug
+	 *
+	 * @return Article|null
+	 */
 	public function find(string $slug): ?Article
 	{
 		try {
@@ -42,6 +52,11 @@ class ArticleDAO extends AbstractDAO
 		return $this->buildDomainObjectFromQueryResult($record);
 	}
 
+	/**
+	 * @param Article $article
+	 *
+	 * @return Article
+	 */
 	public function insert(Article $article): Article
 	{
 		try {
@@ -62,6 +77,11 @@ class ArticleDAO extends AbstractDAO
 		}
 	}
 
+	/**
+	 * @param Article $article
+	 *
+	 * @return void
+	 */
 	public function delete(Article $article): void
 	{
 		try {
@@ -77,6 +97,11 @@ class ArticleDAO extends AbstractDAO
 		}
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return Article
+	 */
 	protected function buildDomainObjectFromQueryResult(array $data): Article
 	{
 		$queryDomainObject = new Article();
